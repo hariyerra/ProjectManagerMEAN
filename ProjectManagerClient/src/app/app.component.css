@@ -1,0 +1,12 @@
+
+
+.navbar
+{
+    font-weight: bold;
+    padding-left: 0px;
+}
+
+.navbar .nav-link.active,.navbar .nav-link:hover
+{
+ color: blue;
+}

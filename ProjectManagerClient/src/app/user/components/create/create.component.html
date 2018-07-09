@@ -1,0 +1,117 @@
+<div class="col-md-12">
+  <form [formGroup]="userForm" (ngSubmit)="addorUpdateUser()" novalidate>
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="firstName">First Name:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="firstName" aria-describedby="firstName" formControlName="firstName">
+      </div>
+      <div *ngIf="userForm.controls['firstName'].invalid && (userForm.controls['firstName'].dirty)" class="alert alert-danger col-md-4">
+        <div *ngIf="userForm.controls['firstName'].errors.required">
+          First Name is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="lastName">Last Name:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="lastName" aria-describedby="lastName" formControlName="lastName">
+      </div>
+      <div *ngIf="userForm.controls['lastName'].invalid && (userForm.controls['lastName'].dirty)" class="alert alert-danger col-md-4">
+        <div *ngIf="userForm.controls['lastName'].errors.required">
+          Last Name is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="employeeId">Employee ID:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="text" minlength="6" maxlength="6" class="form-control" name="employeeId" aria-describedby="employeeId" formControlName="employeeId">
+      </div>
+      <div *ngIf="userForm.controls['employeeId'].invalid && (userForm.controls['employeeId'].dirty)" class="alert alert-danger col-md-4">
+        <div *ngIf="userForm.controls['employeeId'].errors.required">
+          Employee ID is required.
+        </div>
+        <div *ngIf="userForm.controls['employeeId'].errors.minlength || userForm.controls['employeeId'].errors.pattern">
+          Employee ID must be 6 digits long.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-6">
+        <input type="hidden" formControlName="userId" name="userId">
+        <button [disabled]="userForm.pristine || userForm.invalid" class="btn btn-primary">{{userAction}}</button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>
+<hr style="width: 100%;" class="hrLine" />
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Search..." name="search" aria-describedby="search" (input)="search($event.target.value)">
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-2 controlTopPadding">
+          <span class="sortlbl">Sort:</span>
+        </div>
+        <div class="col-md-10">
+          <button type="button" class="btn btn-secondary" (click)="sort('firstName')" [disabled]="Users && Users.length==0">First Name</button> &nbsp;
+          <button type="button" class="btn btn-secondary" (click)="sort('lastName')" [disabled]="Users && Users.length==0">Last Name</button>&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="sort('employeeId')" [disabled]="Users && Users.length==0">Id</button>&nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-8">
+      <hr style="width: 100%;" class="hrListItem" *ngIf="Users && Users.length>0" />
+      <div class="list-group" *ngFor="let user of Users">
+        <div class="list-group-item" style="border: 0px;padding-left: 0px;margin-bottom: 0px">
+          <div class="row form-group">
+
+            <div class="col-md-8">
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="text" [value]="user.First_Name" class="form-control" readonly>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="text" [value]="user.Last_Name" class="form-control" readonly>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="text" [value]="user.Employee_ID" class="form-control" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="hidden" [value]="user.User_ID">
+                  <button type="button" class="btn btn-secondary" (click)="editUser(user.User_ID)">Edit</button>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <button type="button" class="btn btn-secondary" (click)="deleteUser(user.User_ID)">Delete</button>
+                </div>
+              </div>
+            </div>
+            <hr style="width: 100%;" class="hrListItem" />
+          </div>
+        </div>
+      </div>
+    </div>

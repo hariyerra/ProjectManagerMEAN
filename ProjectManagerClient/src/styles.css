@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/ng2-slim-loading-bar/style.css";
+@import "../node_modules/ngx-toastr/toastr.css";
+@import "../node_modules/font-awesome/css/font-awesome.css";
+
+.ng-dirty.ng-valid[required], .ng-dirty.ng-valid.required  {
+    border-left: 5px solid #42A948;
+  }
+  
+  .ng-dirty.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442;
+  }
+
+.astreik
+{
+
+color: red;}
+.alert
+{
+    padding-top: 1px;
+    padding-left: 2px;
+    padding-bottom: 10px;
+    margin: 0px;
+}
+
+.hrLine{
+    border-top: 2px solid darkblue;
+}
+
+.hrListItem
+{
+    border-top: 2px dotted gray;
+}
+
+.sortlbl
+{
+   padding-top: 5px;
+}
+
+.list-group-item
+{
+    padding: 0px;
+}
+
+.checkboxPadding
+{
+    padding: 5px !important;
+    
+}
+
+label, .controlTopPadding
+{
+    padding-top: 5px;
+}
+
+.rangeControl
+{
+    padding-top: 5px;
+    width: 100%;
+}
+
+.searchTable{
+    width:30%;
+    overflow-x: auto;
+}
+
+.searchTable thead, .taskTable thead
+{
+    font-weight:bold;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}

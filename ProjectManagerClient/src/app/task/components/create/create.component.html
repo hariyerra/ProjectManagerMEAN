@@ -1,0 +1,109 @@
+<div class="col-md-9">
+  <form #taskForm="ngForm">
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="projectName">Project:</label>
+        <span class="astreik">*</span>
+      </div>
+      <div class="col-md-8">
+        <input type="text" class="form-control" name="projectName" aria-describedby="projectName" readonly required [(ngModel)]="task.Project && task.Project.Project">
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#projectSearchModel" [disabled]="taskId>0">
+          <span class="fa fa-search"></span> Search
+        </button>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label for="projectName">Task:</label>
+      </div>
+      <div class="col-md-10">
+        <input type="text" name="taskName" id="taskName" class="form-control" [(ngModel)]="task.Task" required>
+
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-10">
+        <input type="checkbox" name="isParentTask" [(ngModel)]="isParentTask" [disabled]="taskId>0">
+        <label for="iSParentTask" class="checkboxPadding">Parent Task</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label for="priority">Priority:</label>
+      </div>
+      <div class="col-md-10">
+        <input type="range" min="0" max="30" step="1" class="rangeControl" name='priority' [(ngModel)]="task.Priority" [disabled]="isParentTask"
+          [required]="!isParentTask">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="parentTaskName">Parent Task:</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" class="form-control" name="parentTaskName" aria-describedby="parentTaskName" readonly [(ngModel)]="task.Parent && task.Parent.Parent_Task">
+      </div>
+      <div class="col-md-2">
+        <button [disabled]="isParentTask || !task.Project" type="button" class="btn btn-default" data-toggle="modal" data-target="#parentSearchModel">
+          <span class="fa fa-search"></span> Search
+        </button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-2">
+        <label for="startDate">Start Date:</label>
+      </div>
+      <div class="col-md-4">
+        <input class="form-control" placeholder="Start Date" name='startDate' aria-describedby="startDate"
+          ngbDatepicker #startDatePicker="ngbDatepicker" (focus)="startDatePicker.toggle()" [disabled]="isParentTask" 
+          [(ngModel)]="taskStartDate"
+          [required]="!isParentTask" [dateCompare]="taskEndDate" operation="less than">
+      </div>
+      <div class="col-md-2">
+        <label for="endDate">End Date:</label>
+      </div>
+      <div class="col-md-4">
+        <input class="form-control" placeholder="End Date" name='endDate' aria-describedby="endDate" ngbDatepicker
+          #endDatePicker="ngbDatepicker" (focus)="endDatePicker.toggle()" [disabled]="isParentTask" 
+          [(ngModel)]="taskEndDate"
+          [required]="!isParentTask" [dateCompare]="taskStartDate" operation="greater than">
+
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-2">
+        <label for="user">User:</label>
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-10">
+            <input type="text" class="form-control" name='user' aria-describedby='user' readonly [(ngModel)]="task.User && task.User.Full_Name"
+              [required]="!isParentTask">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userSearchModel" [disabled]="isParentTask">
+              <span class="fa fa-search"></span> Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12 offset-md-9">
+        <input type="hidden" name="projectId">
+        <button class="btn btn-primary" *ngIf="!taskId" [disabled]="!taskForm.form.valid" (click)="addTask()">Add Task</button>
+        <button class="btn btn-primary" *ngIf="taskId" [disabled]="!taskForm.form.valid" (click)="updateTask()">Update Task</button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- popup model component-->
+<user-search (userSelected)="onUserSelected($event)"></user-search>
+<project-search (projectSelected)="onProjectSelected($event)"></project-search>
+<parent-task-search (parentSelected)="onParentSelected($event)"></parent-task-search>

@@ -1,0 +1,13 @@
+.pullRight
+{
+    text-align: right !important;
+}
+
+.usersTable{
+    overflow-x: scroll;
+}
+
+.modal-dialog {
+    min-width: 30% !important;
+    margin: 30px auto;
+}

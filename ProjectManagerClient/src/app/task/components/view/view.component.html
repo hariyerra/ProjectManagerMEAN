@@ -1,0 +1,74 @@
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-2">
+          <label for="projectName">Project:</label>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" name="projectName" aria-describedby="projectName" readonly [(ngModel)]="project && project.Project">
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#projectSearchModel">
+            <span class="fa fa-search"></span> Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
+      <div class="row">
+        <div class="col-md-3" style="text-align:right">
+          <label>Sort Task By:</label>
+        </div>
+        <div class="col-md-9">
+          <button type="button" class="btn btn-secondary" [disabled]="!Tasks" (click)="sortTask('Start_Date')">Start Date</button> &nbsp;
+          <button type="button" class="btn btn-secondary" [disabled]="!Tasks" (click)="sortTask('End_Date')">End Date</button>&nbsp;
+          <button type="button" class="btn btn-secondary" [disabled]="!Tasks" (click)="sortTask('Priority')">Priority</button>&nbsp;
+          <button type="button" class="btn btn-secondary" [disabled]="!Tasks" (click)="sortTask('Status')">Completed</button>&nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<hr style="width: 100%;" class="hrListItem" />
+
+<div *ngIf="Tasks && Tasks.length>0" class="col-md-12">
+  <table *ngFor="let task of Tasks" class="table table-borderless taskTable">
+    <thead>
+      <td style="width: 25%">Task</td>
+      <td style="width: 25%">Parent</td>
+      <td style="width: 5%">Priority</td>
+      <td style="width: 10%">Start</td>
+      <td style="width: 10%">End</td>
+      <td style="width: 25%"></td>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <label>{{task.Task}}</label>
+        </td>
+        <td>
+          <label *ngIf="!task.Parent">This Task Has NO Parent</label>
+          <label *ngIf="task.Parent">{{task.Parent.Parent_Task}}</label>
+        </td>
+        <td>{{task.Priority}}</td>
+        <td>{{task.Start_Date | date:'dd-MM-yyyy'}}</td>
+        <td>{{task.End_Date | date:'dd-MM-yyyy'}}</td>
+        <td *ngIf="task.Status==0">
+          <button type="button" class="btn btn-secondary" (click)="editTask(task.Task_ID)">Edit</button>&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="endTask(task.Task_ID)">End Task</button>
+        </td>
+        <td *ngIf="task.Status==1">Completed</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+        <hr style="width: 100%;" class="hrListItem" />
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<project-search (projectSelected)="onProjectSelected($event)"></project-search>

@@ -1,0 +1,49 @@
+<div class="modal fade" id="userSearchModel" tabindex="-1" role="dialog" aria-labelledby="userSearchModel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Search Manager</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" class="form-control" placeholder="Search.." name="UserSearch" (input)="searchUser($event.target.value)">
+            <br>
+            <div class="row">
+              <div class="col-md-12 searchTable">
+                <table class="table table-striped table-hovered table-bordered" *ngIf="Users && Users.length>0">
+                  <thead class="table-primary">
+                    <tr>
+                      <td></td>
+                      <td>First Name</td>
+                      <td>Last Name</td>
+                      <td>Employee ID</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of Users">
+                      <td>
+                        <input type="radio" [value]="user.User_ID" name="userID" (change)="selectUser($event.target.value)">
+                      </td>
+                      <td>{{user.First_Name}}</td>
+                      <td>{{user.Last_Name}}</td>
+                      <td>{{user.Employee_ID}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <label *ngIf="Users && Users.length==0">No users found for search criteria.</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!enableAdd" (click)="addUser()">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
