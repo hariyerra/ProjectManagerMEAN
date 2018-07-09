@@ -11,6 +11,7 @@ addons:
 
 before_script: 
   - yarn global add @angular/cli
+  - cd ProjectManagerClient
 
 cache:
   yarn: true,
