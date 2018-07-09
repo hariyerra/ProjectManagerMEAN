@@ -9,7 +9,7 @@ branches:
 addons:
   chrome: stable
 
-before_script:
+before_script: 
   - yarn global add @angular/cli
 
 cache:
