@@ -1,4 +1,4 @@
-# ProjectManagerMEAN
+# ProjectManager MEAN stack Application sample
 
 Project Manager application is a Single Page Application (SPA) to keep track of projects,
 their respective tasks, their status and priorities.
